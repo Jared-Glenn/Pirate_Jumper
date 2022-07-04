@@ -49,3 +49,7 @@ class Level:
         self.player.update()
         self.player.draw(self.display_surface)
         self.scroll_x()
+
+def horizontal_movement_collision(self):
+    player = self.player.sprite
+    self.rect.x += self.direction.x * self.speed
