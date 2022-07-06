@@ -3,6 +3,8 @@ from settings import *
 from tiles import Tile
 from level import Level
 
+# cd Documents/3. Programming/Pygame/Pirate Jumper/1. Basics/code
+
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
