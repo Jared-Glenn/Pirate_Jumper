@@ -14,11 +14,15 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2(0,0)
         self.speed = 8
         self.gravity = 0.8
-        self.jump_speed = -13
+        self.jump_speed = -16
         
         #Player Status
         self.status = 'idle'
         self.facing_right = True
+        self.on_ground = False
+        self.on_ceiling = False
+        self.on_left = False
+        self.on_right = False
 
     def import_character_assets(self):
         character_path = '../graphics/character/'
@@ -41,6 +45,14 @@ class Player(pygame.sprite.Sprite):
         else:
             flipped_image = pygame.transform.flip(image, True, False)
             self.image = flipped_image
+        
+        # Set the rectangle
+        if self.on_ground:
+            self.rect = self.image.get_rect(midbottom = self.rect.midbottom)
+        elif self.on_ceiling:
+            self.rect = self.image.get_rect(midtop = self.rect.midtop)
+        else:
+            self.rect = self.image.get_rect(center = self.rect.center)
 
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -54,7 +66,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
             
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and self.on_ground:
             self.jump()
     
     def get_status(self):
